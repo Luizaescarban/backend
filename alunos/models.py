@@ -5,5 +5,22 @@ class Estado(models.Model):
     sigla = models.CharField(max_length=2)
 
     def __str__(self):
-        return self.nome
+        return f"{self.nome} ({self.sigla})"
+
+class Cidade(models.Model):
+    nome = models.CharField(max_length=50)
+    estado = models.ForeignKey(Estado, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.nome} ({self.estado.sigla})"
+    
+class Pessoa(models.Model):
+    nome = models.CharField(max_length=100)
+    telefone = models.CharField(max_length=9)
+    email = models.EmailField(max_length=50)
+    dataNascimento = models.DateField
+    cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.nome}"
 
